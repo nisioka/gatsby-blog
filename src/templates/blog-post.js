@@ -5,11 +5,13 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
-  const eyeCatchImg = data.allFile.edges[0].node.childImageShar
+  const eyeCatchImg = data.allFile.edges[0].node.childImageSharp
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -24,6 +26,11 @@ const BlogPostTemplate = ({ data, location }) => {
       >
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
+          <GatsbyImage
+            image={getImage(eyeCatchImg)}
+            alt={post.frontmatter.title}
+            key={post.frontmatter.title}
+          />
           <p>{post.frontmatter.date}</p>
         </header>
         <section
@@ -90,7 +97,7 @@ export const pageQuery = graphql`
           relativePath
           childImageSharp {
             gatsbyImageData(
-              width: 1000
+              width: 640
               formats: [AUTO, WEBP, AVIF]
               placeholder: BLURRED
             )
