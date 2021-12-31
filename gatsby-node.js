@@ -20,6 +20,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             fields {
               slug
             }
+            frontmatter {
+              hero
+            }
           }
         }
       }
@@ -106,6 +109,12 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       description: String
       date: Date @dateformat
+      # ↓追加↓
+      pagetype: String
+      tags: [String]
+      cate: String
+      hero: String
+      # ↑追加↑
     }
 
     type Fields {
