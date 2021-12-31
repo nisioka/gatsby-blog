@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `銀ねこアトリエ`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `かみーゆ`,
+      summary: `セブ島に住むフロントエンドエンジニア`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    description: `セブ島に住むフロントエンドエンジニアの気ままな日記`,
+    siteUrl: `https://ginneko-atelier.com/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `lirioY`,
     },
   },
   plugins: [
