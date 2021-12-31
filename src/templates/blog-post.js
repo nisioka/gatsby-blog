@@ -9,6 +9,7 @@ const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
+  const eyeCatchImg = data.allFile.edges[0].node.childImageShar
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -71,10 +72,30 @@ export const pageQuery = graphql`
     $id: String!
     $previousPostId: String
     $nextPostId: String
+    $hero: String
   ) {
     site {
       siteMetadata {
         title
+      }
+    }
+    allFile(
+      filter: {
+        relativePath: { eq: $hero }
+        sourceInstanceName: { eq: "images" }
+      }
+    ) {
+      edges {
+        node {
+          relativePath
+          childImageSharp {
+            gatsbyImageData(
+              width: 1000
+              formats: [AUTO, WEBP, AVIF]
+              placeholder: BLURRED
+            )
+          }
+        }
       }
     }
     markdownRemark(id: { eq: $id }) {
