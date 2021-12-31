@@ -16,6 +16,23 @@ const Header = ({ location }) => {
       </p>
     )
   }
-  return <header>{siteName}</header>
+  return (
+    <header>
+      {siteName}
+      <nav>
+        <ul>
+          <li>
+            <Link to="/blogs/">ブログ</Link>
+          </li>
+          <li>
+            <Link to="/about/">About Me</Link>
+          </li>
+          <li>
+            <Link to="/contact/">Contact</Link>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  )
 }
 export default Header
