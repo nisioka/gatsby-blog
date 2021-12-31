@@ -22,6 +22,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
             frontmatter {
               hero
+              pagetype
             }
           }
         }
@@ -44,7 +45,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // `context` is available in the template as a prop and as a variable in GraphQL
 
   if (posts.length > 0) {
-    const blog = posts.filter(post => post.frontmatter.pagetype === "blog")
+    const blogList = posts.filter(post => post.frontmatter.pagetype === "blog")
+    console.log(posts)
     blogList.forEach((post, index) => {
       const previousPostId = index === 0 ? null : blogList[index - 1].id
       const nextPostId =
