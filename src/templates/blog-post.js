@@ -39,6 +39,12 @@ const BlogPostTemplate = ({ data, location }) => {
           <dt>カテゴリ</dt>
           <dd>{cate}</dd>
         </dl>
+        <dl>
+          <dt>タグ</dt>
+          {tags.map((tag, index) => {
+            return <dd key={`tag${index}`}>{tag}</dd>
+          })}
+        </dl>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
