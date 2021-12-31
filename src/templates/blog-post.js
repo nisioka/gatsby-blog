@@ -12,6 +12,7 @@ const BlogPostTemplate = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
   const eyeCatchImg = data.allFile.edges[0].node.childImageSharp
+  const { cate, tags } = data.markdownRemark.frontmatter
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -33,6 +34,11 @@ const BlogPostTemplate = ({ data, location }) => {
           />
           <p>{post.frontmatter.date}</p>
         </header>
+        {/* カテゴリー追加 */}
+        <dl>
+          <dt>カテゴリ</dt>
+          <dd>{cate}</dd>
+        </dl>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
