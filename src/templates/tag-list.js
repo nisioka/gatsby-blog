@@ -52,7 +52,7 @@ const TagList = ({ pageContext, data, location }) => {
                 >
                   <Img alt={title} image={post.frontmatter.hero}></Img>
                   <small>
-                    <time datetime={post.frontmatter.date}>
+                    <time dateTIme={post.frontmatter.date}>
                       {post.frontmatter.date}
                     </time>
                   </small>

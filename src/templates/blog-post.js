@@ -42,7 +42,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </div>
           <p className="date">
             更新日：
-            <time datetime={post.frontmatter.date}>
+            <time dateTIme={post.frontmatter.date}>
               {post.frontmatter.date}
             </time>
           </p>
@@ -204,14 +204,13 @@ const Dl = styled.dl`
     a {
       text-decoration: none;
       border-radius: 3px;
-      color:#fff;
+      color: #fff;
       background: rgb(41, 46, 114);
       padding: 2px 5px;
 
       &:hover {
-        opacity: .5;
+        opacity: 0.5;
       }
-
     }
 
     & + dd {
