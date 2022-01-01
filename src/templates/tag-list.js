@@ -8,8 +8,10 @@ import { BlogListWrapper, BlogListHeader } from "../style/blog-list-style"
 //画像読み込み
 import Img from "../components/img"
 
+import Pagination from "../components/pagination"
+
 const TagList = ({ pageContext, data, location }) => {
-  const { tag } = pageContext
+  const { page, current, tag } = pageContext
   const { totalCount, nodes } = data.allMarkdownRemark
   const posts = nodes
   const title = "記事一覧"
@@ -52,7 +54,7 @@ const TagList = ({ pageContext, data, location }) => {
                 >
                   <Img alt={title} image={post.frontmatter.hero}></Img>
                   <small>
-                    <time datetime={post.frontmatter.date}>
+                    <time dateTIme={post.frontmatter.date}>
                       {post.frontmatter.date}
                     </time>
                   </small>
@@ -75,6 +77,7 @@ const TagList = ({ pageContext, data, location }) => {
           )
         })}
       </BlogListWrapper>
+      <Pagination num={page} current={current} type={`tags/${tag}`} />
     </Layout>
   )
 }
@@ -82,13 +85,15 @@ const TagList = ({ pageContext, data, location }) => {
 export default TagList
 
 export const pageQuery = graphql`
-  query ($tag: String) {
+  query ($tag: String, $limit: Int!, $skip: Int!) {
     site {
       siteMetadata {
         title
       }
     }
     allMarkdownRemark(
+      limit: $limit
+      skip: $skip
       sort: { fields: [frontmatter___date], order: DESC }
       # pagetype=blogで絞り込む
       filter: {

@@ -80,9 +80,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const count = blogPosts.length //記事の長さ
     let numPages = Math.ceil(count / postsPerPage) //分割されるページの数
     for (let index = 0; index < numPages; index++) {
+      const pageNumber = index + 1
       const withPrefix = pageNumber =>
         pageNumber === 1 ? `/blogs/` : `/blogs/page/${pageNumber}/`
-      const pageNumber = index + 1
       createPage({
         path: withPrefix(pageNumber), //修正
         component: blogList,
@@ -106,13 +106,30 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     // カテゴリー分ページを作成
     cates.forEach(cate => {
       const cateSlug = cate
-      createPage({
-        path: `/blogs/${cate}/`,
-        component: cateList,
-        context: {
-          cateSlug,
-        },
-      })
+      const cateCount = posts.filter(
+        post => post.frontmatter.cate === cate
+      ).length
+      const numPages = Math.ceil(cateCount / postsPerPage) //分割されるページの数
+
+      for (let index = 0; index < numPages; index++) {
+        const pageNumber = index + 1
+        const withPrefix = pageNumber =>
+          pageNumber === 1
+            ? `/blogs/${cate}/`
+            : `/blogs/${cate}/page/${pageNumber}/`
+
+        createPage({
+          path: withPrefix(pageNumber),
+          component: cateList,
+          context: {
+            limit: postsPerPage, //追加
+            skip: index * postsPerPage, //追加
+            current: pageNumber, //追加
+            page: numPages, //追加
+            cateSlug,
+          },
+        })
+      }
     })
 
     //タグの一覧作成
@@ -126,13 +143,28 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     // タグ
     tags.forEach(item => {
       const tag = item
-      createPage({
-        path: `/blogs/tags/${item}/`,
-        component: tagList,
-        context: {
-          tag,
-        },
-      })
+      const tagsCount = blogPosts.filter(post =>
+        post.frontmatter.tags.includes(item)
+      ).length
+      const numPages = Math.ceil(tagsCount / postsPerPage) //分割されるページの数
+      for (let index = 0; index < numPages; index++) {
+        const pageNumber = index + 1
+        const withPrefix = pageNumber =>
+          pageNumber === 1
+            ? `/blogs/tags/${tag}/`
+            : `/blogs/tags/${tag}/page/${pageNumber}/`
+        createPage({
+          path: withPrefix(pageNumber),
+          component: tagList,
+          context: {
+            limit: postsPerPage, //追加
+            skip: index * postsPerPage, //追加
+            current: pageNumber, //追加
+            page: numPages, //追加
+            tag,
+          },
+        })
+      }
     })
   }
 }

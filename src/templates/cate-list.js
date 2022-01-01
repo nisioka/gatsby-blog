@@ -10,8 +10,10 @@ import Img from "../components/img"
 // 追加
 import { siteMetadata } from "../../gatsby-config"
 
+import Pagination from "../components/pagination"
+
 const CateList = ({ pageContext, data, location }) => {
-  const { cateSlug } = pageContext
+  const { page, current, cateSlug } = pageContext
   const { nodes } = data.allMarkdownRemark
   const posts = nodes
 
@@ -55,7 +57,7 @@ const CateList = ({ pageContext, data, location }) => {
                 >
                   <Img alt={title} image={post.frontmatter.hero}></Img>
                   <small>
-                    <time datetime={post.frontmatter.date}>
+                    <time dateTIme={post.frontmatter.date}>
                       {post.frontmatter.date}
                     </time>
                   </small>
@@ -78,6 +80,7 @@ const CateList = ({ pageContext, data, location }) => {
           )
         })}
       </BlogListWrapper>
+      <Pagination num={page} current={current} type={cateSlug} />
     </Layout>
   )
 }
@@ -85,13 +88,15 @@ const CateList = ({ pageContext, data, location }) => {
 export default CateList
 
 export const pageQuery = graphql`
-  query ($cateSlug: String) {
+  query ($cateSlug: String, $limit: Int!, $skip: Int!) {
     site {
       siteMetadata {
         title
       }
     }
     allMarkdownRemark(
+      limit: $limit
+      skip: $skip
       sort: { fields: [frontmatter___date], order: DESC }
       # pagetype=blogかつ cateが $cateSlugと一致するものだけ絞り込む
       filter: {
