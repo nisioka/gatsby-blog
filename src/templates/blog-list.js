@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import { BlogListWrapper, BlogListHeader } from "../style/blog-list-style"
 
 //画像読み込み
 import Img from "../components/img"
@@ -28,11 +29,11 @@ const BlogList = ({ data, location }) => {
   return (
     <Layout location={location} title={title}>
       <Seo title="All posts" />
-      <header>
+      <BlogListHeader>
         <h1>{title}</h1>
         <p>現在 {totalCount} 記事あります</p>
-      </header>
-      <ol style={{ listStyle: `none` }}>
+      </BlogListHeader>
+      <BlogListWrapper>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
@@ -43,7 +44,11 @@ const BlogList = ({ data, location }) => {
                 itemScope
                 itemType="http://schema.org/Article"
               >
-                <Link to={post.fields.slug} itemProp="url">
+                <Link
+                  to={post.fields.slug}
+                  itemProp="url"
+                  className="thumbnail"
+                >
                   <Img alt={title} image={post.frontmatter.hero}></Img>
                   <small>
                     <time datetime={post.frontmatter.date}>
@@ -68,7 +73,7 @@ const BlogList = ({ data, location }) => {
             </li>
           )
         })}
-      </ol>
+      </BlogListWrapper>
     </Layout>
   )
 }

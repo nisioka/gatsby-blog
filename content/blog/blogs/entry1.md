@@ -1,6 +1,6 @@
 ---
 title: 記事サンプル
-date: 2021-11-26
+date: 2020-11-26
 pagetype: blog
 hero: thumbnail/entry01.jpg
 # ↑src/images/ディレクトリを参照している↑
