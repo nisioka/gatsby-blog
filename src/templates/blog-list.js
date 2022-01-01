@@ -8,12 +8,12 @@ import Seo from "../components/seo"
 const BlogList = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
+  console.log(data.allMarkdownRemark.totalCount) //デバッグ
 
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
         <Seo title="All posts" />
-        <Bio />
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
@@ -26,7 +26,6 @@ const BlogList = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <Seo title="All posts" />
-      <Bio />
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
@@ -72,16 +71,27 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      # pagetype=blogで絞り込む
+      filter: { frontmatter: { pagetype: { eq: "blog" } } }
+    ) {
+      # 記事総数取得
+      totalCount
       nodes {
         excerpt
         fields {
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          date(formatString: "YYYY.MM.DD")
           title
           description
+          # 画像を引っ張り出すのに使います
+          hero
+          # カテゴリーやタグを出力したいなら
+          cate
+          tags
         }
       }
     }
