@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import TOC from "../components/table-of-content"
 
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
@@ -64,6 +65,7 @@ const BlogPostTemplate = ({ data, location }) => {
             )
           })}
         </Dl>
+        <TOC data={data.markdownRemark.tableOfContents} />
         <BlogEntry
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
@@ -131,6 +133,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       html
+      tableOfContents(maxDepth: 3)
       frontmatter {
         title
         date(formatString: "YYYY-MM-DD")
@@ -204,14 +207,13 @@ const Dl = styled.dl`
     a {
       text-decoration: none;
       border-radius: 3px;
-      color:#fff;
+      color: #fff;
       background: rgb(41, 46, 114);
       padding: 2px 5px;
 
       &:hover {
-        opacity: .5;
+        opacity: 0.5;
       }
-
     }
 
     & + dd {
