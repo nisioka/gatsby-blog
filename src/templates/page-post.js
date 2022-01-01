@@ -15,6 +15,7 @@ const PagePostTemplate = ({ data, location }) => {
       <Seo
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
+        location={location}
       />
       <Article
         className="blog-post"

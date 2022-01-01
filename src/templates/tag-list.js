@@ -19,7 +19,7 @@ const TagList = ({ pageContext, data, location }) => {
   if (posts.length === 0) {
     return (
       <Layout location={location} title={title}>
-        <Seo title="All posts" />
+        <Seo title="All posts" location={location} />
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
@@ -31,7 +31,12 @@ const TagList = ({ pageContext, data, location }) => {
 
   return (
     <Layout location={location} title={tag}>
-      <Seo title="All posts" />
+      <Seo
+        title="All posts"
+        location={location}
+        type="list"
+        discription={`${tag}一覧記事です。`}
+      />
       <BlogListHeader>
         <h1>{tag}</h1>
         <p>現在 {totalCount} 記事あります</p>
@@ -54,7 +59,7 @@ const TagList = ({ pageContext, data, location }) => {
                 >
                   <Img alt={title} image={post.frontmatter.hero}></Img>
                   <small>
-                    <time dateTIme={post.frontmatter.date}>
+                    <time dateTime={post.frontmatter.date}>
                       {post.frontmatter.date}
                     </time>
                   </small>

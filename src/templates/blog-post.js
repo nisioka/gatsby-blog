@@ -18,14 +18,20 @@ const BlogPostTemplate = ({ data, location }) => {
   const { previous, next } = data
   const keyVisual = data.allFile.edges[0].node.childImageSharp
   const { cate, tags } = data.markdownRemark.frontmatter
-
   const cateName = siteMetadata.category.find(item => item.slug === cate).name
+
+  const ogpImg = data.allFile.edges[0].node.publicURL
 
   return (
     <Layout location={location} title={siteTitle}>
       <Seo
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
+        img={ogpImg}
+        location={location}
+        type="blog"
+        date={post.frontmatter.date}
+        modified={post.frontmatter.modifieddate}
       />
       <Article
         className="blog-post"
@@ -43,7 +49,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </div>
           <p className="date">
             更新日：
-            <time dateTIme={post.frontmatter.date}>
+            <time dateTime={post.frontmatter.date}>
               {post.frontmatter.date}
             </time>
           </p>
@@ -118,6 +124,7 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
+          publicURL
           relativePath
           childImageSharp {
             gatsbyImageData(

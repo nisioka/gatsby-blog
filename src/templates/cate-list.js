@@ -22,7 +22,7 @@ const CateList = ({ pageContext, data, location }) => {
   if (posts.length === 0) {
     return (
       <Layout location={location} title="記事一覧">
-        <Seo title="All posts" />
+        <Seo title="All posts" location={location} />
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
@@ -34,7 +34,12 @@ const CateList = ({ pageContext, data, location }) => {
 
   return (
     <Layout location={location} title={cate.name}>
-      <Seo title={cate.name} />
+      <Seo
+        title={cate.name}
+        location={location}
+        type="list"
+        discription={`${cate.name}一覧記事です。${cate.description}`}
+      />
       <BlogListHeader>
         <h1>{cate.name}</h1>
         <p>{cate.description}</p>
@@ -57,7 +62,7 @@ const CateList = ({ pageContext, data, location }) => {
                 >
                   <Img alt={title} image={post.frontmatter.hero}></Img>
                   <small>
-                    <time dateTIme={post.frontmatter.date}>
+                    <time dateTime={post.frontmatter.date}>
                       {post.frontmatter.date}
                     </time>
                   </small>

@@ -78,7 +78,7 @@ const Pagination = ({ num, current, type }) => {
       </li>
     )
   }
-  console.log(num)
+
   if (num > 1) {
     return (
       <PaginationWrapper>
