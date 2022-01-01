@@ -13,6 +13,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const tagList = path.resolve(`./src/templates/tag-list.js`)
 
+  const pagePost = path.resolve(`./src/templates/page-post.js`)
+
   // Get all markdown blog posts sorted by date
   const result = await graphql(
     `
@@ -165,6 +167,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           },
         })
       }
+    })
+    const pagePosts = posts.filter(post => post.frontmatter.pagetype !== "blog")
+
+    pagePosts.forEach(post => {
+      createPage({
+        path: post.fields.slug,
+        component: pagePost,
+        context: {
+          id: post.id,
+        },
+      })
     })
   }
 }
