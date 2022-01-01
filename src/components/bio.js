@@ -102,12 +102,14 @@ const Bio = () => {
 export default Bio
 
 const BioWrapper = styled.div`
-    text-align:center;
+  text-align:center;
+
   .bio-avatar {
     display: block;
     border-radius: 50%;
     margin: 0 auto;
   }
+
   h2 {
       font-size: 18px;
   }
@@ -118,6 +120,7 @@ const Sns = styled.ul`
   margin: 0 0 15px;
   padding: 0;
   justify-content: center;
+
   li {
       margin: 0 5px;
   }
