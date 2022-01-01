@@ -12,6 +12,38 @@ module.exports = {
       instagram: `yurico.k`,
       youtube: `https://www.youtube.com/channel/UCbSgjkCIPucux8cFTuQcdcw`,
     },
+    category: [
+      {
+        slug: `cms`,
+        name: `Contents Management System`,
+        description: `WordPressやconcrete5などCMSの記事`,
+      },
+      {
+        slug: `frontend`,
+        name: `Front End`,
+        description: `HTML、CSS、JSなどの書き留めたチップス`,
+      },
+      {
+        slug: `backend`,
+        name: `Back End`,
+        description: `PHP、黒い画面、DBが中心`,
+      },
+      {
+        slug: `seo`,
+        name: `Seaarch Engine Optimization`,
+        description: `SEOやコンテンツマーケティングに関する記事`,
+      },
+      {
+        slug: `career`,
+        name: `ITセミナー`,
+        description: `勉強会の開催/登壇について書いてます`,
+      },
+      {
+        slug: `ginneko-tsuredure`,
+        name: `Life Hack`,
+        description: `思ったことを気ままに書いてます`,
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-image`,
