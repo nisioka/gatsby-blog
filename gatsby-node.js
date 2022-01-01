@@ -73,12 +73,27 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         },
       })
     })
+
     // 一覧を出力するコードを追加
-    createPage({
-      path: "/blogs/",
-      component: blogList,
-      context: {},
-    })
+    const postsPerPage = 12 //1ページに表示する記事の数
+
+    const count = blogPosts.length //記事の長さ
+    let numPages = Math.ceil(count / postsPerPage) //分割されるページの数
+    for (let index = 0; index < numPages; index++) {
+      const withPrefix = pageNumber =>
+        pageNumber === 1 ? `/blogs/` : `/blogs/page/${pageNumber}/`
+      const pageNumber = index + 1
+      createPage({
+        path: withPrefix(pageNumber), //修正
+        component: blogList,
+        context: {
+          limit: postsPerPage, //追加
+          skip: index * postsPerPage, //追加
+          current: pageNumber, //追加
+          page: numPages, //追加
+        },
+      })
+    }
 
     //カテゴリー一覧追加
     //カテゴリーのリスト取得

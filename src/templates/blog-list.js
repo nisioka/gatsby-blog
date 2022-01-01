@@ -7,8 +7,10 @@ import { BlogListWrapper, BlogListHeader } from "../style/blog-list-style"
 
 //画像読み込み
 import Img from "../components/img"
+import Pagination from "../components/pagination"
 
-const BlogList = ({ data, location }) => {
+const BlogList = ({ pageContext, data, location }) => {
+  const { page, current } = pageContext
   const { totalCount, nodes } = data.allMarkdownRemark
   const posts = nodes
   const title = "記事一覧"
@@ -74,6 +76,7 @@ const BlogList = ({ data, location }) => {
           )
         })}
       </BlogListWrapper>
+      <Pagination num={page} current={current} type="" />
     </Layout>
   )
 }
@@ -81,13 +84,15 @@ const BlogList = ({ data, location }) => {
 export default BlogList
 
 export const pageQuery = graphql`
-  query {
+  query ($limit: Int!, $skip: Int!) {
     site {
       siteMetadata {
         title
       }
     }
     allMarkdownRemark(
+      limit: $limit
+      skip: $skip
       sort: { fields: [frontmatter___date], order: DESC }
       # pagetype=blogで絞り込む
       filter: { frontmatter: { pagetype: { eq: "blog" } } }
