@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         slug: `seo`,
-        name: `Seaarch Engine Optimization`,
+        name: `Search Engine Optimization`,
         description: `SEOやコンテンツマーケティングに関する記事`,
       },
       {

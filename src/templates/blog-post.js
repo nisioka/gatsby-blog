@@ -9,12 +9,16 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import styled from "styled-components"
 
+import { siteMetadata } from "../../gatsby-config"
+
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
   const keyVisual = data.allFile.edges[0].node.childImageSharp
   const { cate, tags } = data.markdownRemark.frontmatter
+
+  const cateName = siteMetadata.category.find(item => item.slug === cate).name
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -46,12 +50,18 @@ const BlogPostTemplate = ({ data, location }) => {
         {/* カテゴリー追加 */}
         <Dl>
           <dt>カテゴリ</dt>
-          <dd>{cate}</dd>
+          <dd>
+            <Link to={`/blogs/${cate}/`}>{cateName}</Link>
+          </dd>
         </Dl>
         <Dl>
           <dt>タグ</dt>
           {tags.map((tag, index) => {
-            return <dd key={`tag${index}`}>{tag}</dd>
+            return (
+              <dd key={`tag${index}`}>
+                <Link to={`/blogs/tags/${tag}/`}>{tag}</Link>
+              </dd>
+            )
           })}
         </Dl>
         <BlogEntry
@@ -190,6 +200,19 @@ const Dl = styled.dl`
     font-size: 14px;
     margin-left: 0;
     padding-left: 0;
+
+    a {
+      text-decoration: none;
+      border-radius: 3px;
+      color:#fff;
+      background: rgb(41, 46, 114);
+      padding: 2px 5px;
+
+      &:hover {
+        opacity: .5;
+      }
+
+    }
 
     & + dd {
       margin-left: 15px;
