@@ -38,7 +38,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </div>
           <p className="date">
             更新日：
-            <time datetime={post.frontmatter.date}>
+            <time dateTIme={post.frontmatter.date}>
               {post.frontmatter.date}
             </time>
           </p>
