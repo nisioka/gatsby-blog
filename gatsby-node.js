@@ -11,6 +11,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const cateList = path.resolve(`./src/templates/cate-list.js`)
 
+  const tagList = path.resolve(`./src/templates/tag-list.js`)
+
   // Get all markdown blog posts sorted by date
   const result = await graphql(
     `
@@ -28,6 +30,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               hero
               pagetype
               cate
+              tags
             }
           }
         }
@@ -93,6 +96,26 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         component: cateList,
         context: {
           cateSlug,
+        },
+      })
+    })
+
+    //タグの一覧作成
+    let tags = posts.reduce((tags, edge) => {
+      const edgeTags = edge.frontmatter.tags
+      return edgeTags ? tags.concat(edgeTags) : tags
+    }, [])
+    // 重複削除
+    tags = [...new Set(tags)]
+
+    // タグ
+    tags.forEach(item => {
+      const tag = item
+      createPage({
+        path: `/blogs/tags/${item}/`,
+        component: tagList,
+        context: {
+          tag,
         },
       })
     })
