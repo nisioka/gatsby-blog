@@ -45,12 +45,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // `context` is available in the template as a prop and as a variable in GraphQL
 
   if (posts.length > 0) {
-    const blogList = posts.filter(post => post.frontmatter.pagetype === "blog")
+    const blogPosts = posts.filter(post => post.frontmatter.pagetype === "blog")
 
-    blogList.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : blogList[index - 1].id
+    blogPosts.forEach((post, index) => {
+      const previousPostId = index === 0 ? null : blogPosts[index - 1].id
       const nextPostId =
-        index === blogList.length - 1 ? null : blogList[index + 1].id
+        index === blogPosts.length - 1 ? null : blogPosts[index + 1].id
 
       createPage({
         path: post.fields.slug,
