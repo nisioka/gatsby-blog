@@ -9,6 +9,8 @@ module.exports = {
     siteUrl: `https://ginneko-atelier.com/`,
     social: {
       twitter: `lirioY`,
+      instagram: `yurico.k`,
+      youtube: `https://www.youtube.com/channel/UCbSgjkCIPucux8cFTuQcdcw`,
     },
   },
   plugins: [

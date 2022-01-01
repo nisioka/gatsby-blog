@@ -46,7 +46,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   if (posts.length > 0) {
     const blogList = posts.filter(post => post.frontmatter.pagetype === "blog")
-    console.log(posts)
+
     blogList.forEach((post, index) => {
       const previousPostId = index === 0 ? null : blogList[index - 1].id
       const nextPostId =

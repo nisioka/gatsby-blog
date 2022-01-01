@@ -7,11 +7,13 @@ import Seo from "../components/seo"
 
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
+import styled from "styled-components"
+
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
-  const eyeCatchImg = data.allFile.edges[0].node.childImageSharp
+  const keyVisual = data.allFile.edges[0].node.childImageSharp
   const { cate, tags } = data.markdownRemark.frontmatter
 
   return (
@@ -20,50 +22,48 @@ const BlogPostTemplate = ({ data, location }) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <article
+      <Article
         className="blog-post"
         itemScope
         itemType="http://schema.org/Article"
       >
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <GatsbyImage
-            image={getImage(eyeCatchImg)}
-            alt={post.frontmatter.title}
-            key={post.frontmatter.title}
-          />
-          <p>{post.frontmatter.date}</p>
+          <div className="keyvisual">
+            <GatsbyImage
+              image={getImage(keyVisual)}
+              alt={post.frontmatter.title}
+              key={post.frontmatter.title}
+            />
+          </div>
+          <p className="date">
+            更新日：
+            <time datetime={post.frontmatter.date}>
+              {post.frontmatter.date}
+            </time>
+          </p>
         </header>
         {/* カテゴリー追加 */}
-        <dl>
+        <Dl>
           <dt>カテゴリ</dt>
           <dd>{cate}</dd>
-        </dl>
-        <dl>
+        </Dl>
+        <Dl>
           <dt>タグ</dt>
           {tags.map((tag, index) => {
             return <dd key={`tag${index}`}>{tag}</dd>
           })}
-        </dl>
-        <section
+        </Dl>
+        <BlogEntry
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
         />
-        <hr />
         <footer>
           <Bio />
         </footer>
-      </article>
-      <nav className="blog-post-nav">
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
+      </Article>
+      <BlogPostNav>
+        <ul>
           <li>
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
@@ -79,7 +79,7 @@ const BlogPostTemplate = ({ data, location }) => {
             )}
           </li>
         </ul>
-      </nav>
+      </BlogPostNav>
     </Layout>
   )
 }
@@ -144,6 +144,56 @@ export const pageQuery = graphql`
       frontmatter {
         title
       }
+    }
+  }
+`
+
+const Article = styled.article`
+  max-width: 750px;
+  margin: 0 auto;
+
+  .date {
+    font-weight: 700;
+
+    time {
+      font-size: 1.4rem;
+    }
+  }
+  .keyvisual {
+    text-align: center;
+  }
+`
+const BlogEntry = styled.section`
+  margin: 15px 0 30px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+`
+const BlogPostNav = styled.nav`
+  max-width: 750px;
+  margin: 0 auto;
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+  }
+`
+const Dl = styled.dl`
+  display: flex;
+  margin: 0;
+
+  dt {
+    width: 80px;
+    font-weight: 700;
+  }
+  dd {
+    font-size: 14px;
+    margin-left: 0;
+    padding-left: 0;
+
+    & + dd {
+      margin-left: 15px;
+      margin-bottom: 5px;
     }
   }
 `
