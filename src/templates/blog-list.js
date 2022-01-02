@@ -28,7 +28,7 @@ const BlogList = ({ data, location }) => {
 
   return (
     <Layout location={location} title={title}>
-      <Seo title="All posts" />
+      <Seo title="記事一覧" />
       <BlogListHeader>
         <h1>{title}</h1>
         <p>現在 {totalCount} 記事あります</p>

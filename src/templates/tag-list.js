@@ -29,7 +29,7 @@ const TagList = ({ pageContext, data, location }) => {
 
   return (
     <Layout location={location} title={tag}>
-      <Seo title="All posts" />
+      <Seo title={tag} />
       <BlogListHeader>
         <h1>{tag}</h1>
         <p>現在 {totalCount} 記事あります</p>
