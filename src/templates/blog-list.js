@@ -53,7 +53,7 @@ const BlogList = ({ pageContext, data, location }) => {
                 >
                   <Img alt={title} image={post.frontmatter.hero}></Img>
                   <small>
-                    <time dateTIme={post.frontmatter.date}>
+                    <time dateTime={post.frontmatter.date}>
                       {post.frontmatter.date}
                     </time>
                   </small>

@@ -78,14 +78,13 @@ const Pagination = ({ num, current, type }) => {
       </li>
     )
   }
-  console.log(num)
   if (num > 1) {
     return (
       <PaginationWrapper>
         <ul>
           {first}
           {prev}
-          <li key="pagination0">
+          <li key="pagination2">
             page {current}/{num}
           </li>
           {next}

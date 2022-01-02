@@ -7,8 +7,8 @@ const TableOfContent = props => {
 
   return (
     <TOC>
-      <input type="checkbox" class="mokuji" id="mokuji" />
-      <label class="heading" for="mokuji">
+      <input type="checkbox" className="mokuji" id="mokuji" />
+      <label className="heading" htmlFor="mokuji">
         目次
       </label>
       <div
@@ -34,11 +34,11 @@ const TOC = styled.div`
       max-height: 0;
     }
     &:checked ~ .heading::before {
-        transform: rotate(90deg);
+      transform: rotate(90deg);
     }
   }
   div {
-    transition: .3s;
+    transition: 0.3s;
     max-height: 200vh;
     overflow: hidden;
     p {
@@ -63,7 +63,7 @@ const TOC = styled.div`
           font-size: 1.4rem;
           font-weight: 700;
           position: absolute;
-          content: counters(cnt, " - ")'.' ;
+          content: counters(cnt, " - ") ".";
         }
         ol {
           padding-left: 0;
@@ -90,13 +90,13 @@ const TOC = styled.div`
     &::after,
     &::before {
       position: absolute;
-      content: '';
+      content: "";
       height: 2px;
       width: 20px;
       background: #999;
       right: 20px;
       top: 19px;
-      transition: .3s;
+      transition: 0.3s;
     }
   }
 `
