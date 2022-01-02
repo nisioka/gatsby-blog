@@ -37,7 +37,7 @@ const CateList = ({ pageContext, data, location }) => {
       <Seo
         title={cate.name}
         location={location}
-        type="list"
+        type="list-child"
         discription={`${cate.name}一覧記事です。${cate.description}`}
       />
       <BlogListHeader>

@@ -82,7 +82,7 @@ const Seo = props => {
   }
 
   // JSON+LDの設定
-  let jsonLdConfigs = [
+  let jsonLd = [
     {
       "@context": "http://schema.org",
       "@type": isRootPath ? "webSite" : "webPage",
@@ -116,75 +116,49 @@ const Seo = props => {
       author,
       publisher,
     }
-    jsonLdConfigs = [...jsonLdConfigs, article]
+    jsonLd = [...jsonLd, article]
   }
 
   if (!isRootPath) {
-    let breadCrumbList = [
-      {
-        "@type": "ListItem",
-        position: 1,
-        item: {
-          "@id": `${site.siteMetadata.siteUrl}/`,
-          name: "ホーム",
-        },
-      },
-    ]
-    if (type === "blog") {
+    let breadCrumbList
+    const home = {
+      "@type": "ListItem",
+      position: 1,
+      name: "ホーム",
+      item: `${site.siteMetadata.siteUrl}/`,
+    }
+    const blogList = {
+      "@type": "ListItem",
+      position: 2,
+      name: `ブログ一覧`,
+      item: `${site.siteMetadata.siteUrl}/blogs/`,
+    }
+    if (type === "blog" || type === "cate-list" || type === "tag-list") {
       breadCrumbList = [
-        ...breadCrumbList,
-        {
-          "@type": "ListItem",
-          position: 2,
-          item: {
-            "@id": `${site.siteMetadata.siteUrl}/blogs/`,
-            name: `ブログ一覧`,
-          },
-        },
+        home,
+        blogList,
         {
           "@type": "ListItem",
           position: 3,
-          item: {
-            "@id": blogUrl,
-            name: title,
-          },
+          name: title,
+          item: blogUrl,
         },
       ]
-    } else if (type === "list") {
-      breadCrumbList = [
-        ...breadCrumbList,
-        {
-          "@type": "ListItem",
-          position: 2,
-          item: {
-            "@id": `${site.siteMetadata.siteUrl}/blogs/`,
-            name: `ブログ一覧`,
-          },
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          item: {
-            "@id": blogUrl,
-            name: title,
-          },
-        },
-      ]
+    } else if (type === "blog-list") {
+      breadCrumbList = [home, blogList]
     } else {
       breadCrumbList = [
-        ...breadCrumbList,
+        home,
         {
           "@type": "ListItem",
           position: 2,
-          item: {
-            "@id": blogUrl,
-            name: title,
-          },
+          name: title,
+          item: blogUrl,
         },
       ]
     }
-    jsonLdConfigs = [
-      ...jsonLdConfigs,
+    jsonLd = [
+      ...jsonLd,
       {
         "@context": "http://schema.org",
         "@type": "BreadcrumbList",
@@ -248,9 +222,7 @@ const Seo = props => {
       ].concat(meta)}
     >
       <link rel="canonical" href={blogUrl} />
-      <script type="application/ld+json">
-        {JSON.stringify(jsonLdConfigs)}
-      </script>
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
     </Helmet>
   )
 }

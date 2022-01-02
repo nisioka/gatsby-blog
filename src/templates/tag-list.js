@@ -32,9 +32,9 @@ const TagList = ({ pageContext, data, location }) => {
   return (
     <Layout location={location} title={tag}>
       <Seo
-        title="All posts"
+        title={tag}
         location={location}
-        type="list"
+        type="tag-list"
         discription={`${tag}一覧記事です。`}
       />
       <BlogListHeader>
