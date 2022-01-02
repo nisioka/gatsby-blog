@@ -7,6 +7,7 @@ import Seo from "../components/seo"
 import TOC from "../components/table-of-content"
 
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import RetatedList from "../components/retated-list"
 
 import styled from "styled-components"
 
@@ -98,6 +99,11 @@ const BlogPostTemplate = ({ data, location }) => {
           </li>
         </ul>
       </BlogPostNav>
+      <RetatedList
+        category={cate}
+        slug={post.fields.slug}
+        tags={tags}
+      ></RetatedList>
     </Layout>
   )
 }
@@ -141,6 +147,9 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 160)
       html
       tableOfContents(maxDepth: 3)
+      fields {
+        slug
+      }
       frontmatter {
         title
         date(formatString: "YYYY-MM-DD")

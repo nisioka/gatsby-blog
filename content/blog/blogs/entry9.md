@@ -1,5 +1,5 @@
 ---
-title: 新年のご挨拶
+title: 新年のご挨拶9
 date: 2021-01-01
 pagetype: blog
 hero: thumbnail/entry03.jpg

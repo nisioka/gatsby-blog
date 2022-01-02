@@ -1,5 +1,5 @@
 ---
-title: 記事サンプル
+title: 記事サンプル1
 date: 2020-11-26
 modifieddate: 2020-11-26
 pagetype: blog

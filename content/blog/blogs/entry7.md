@@ -1,5 +1,5 @@
 ---
-title: 記事サンプル
+title: 記事サンプル7
 date: 2020-11-26
 pagetype: blog
 hero: thumbnail/entry01.jpg
