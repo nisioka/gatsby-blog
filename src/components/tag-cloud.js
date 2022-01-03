@@ -53,7 +53,7 @@ const TagCloud = () => {
           size = "sm"
         }
         return (
-          <li key={tag} className={size}>
+          <li key={tag.name} className={size}>
             <Link to={`/blogs/tags/${tag.name}/`}>
               {tag.name}({tag.cnt})
             </Link>
