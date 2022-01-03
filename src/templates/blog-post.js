@@ -9,6 +9,7 @@ import TOC from "../components/table-of-content"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import RetatedList from "../components/retated-list"
 import TagCloud from "../components/tag-cloud"
+import BreadCrumbList from "../components/breadcrumb-list"
 
 import styled from "styled-components"
 
@@ -40,6 +41,7 @@ const BlogPostTemplate = ({ data, location }) => {
         itemScope
         itemType="http://schema.org/Article"
       >
+        <BreadCrumbList type="blog" location={location}></BreadCrumbList>
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <div className="keyvisual">
