@@ -8,6 +8,7 @@ import TOC from "../components/table-of-content"
 
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import RetatedList from "../components/retated-list"
+import TagCloud from "../components/tag-cloud"
 
 import styled from "styled-components"
 
@@ -104,6 +105,7 @@ const BlogPostTemplate = ({ data, location }) => {
         slug={post.fields.slug}
         tags={tags}
       ></RetatedList>
+      <TagCloud></TagCloud>
     </Layout>
   )
 }
