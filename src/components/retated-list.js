@@ -33,11 +33,11 @@ const Lists = ({ category, slug, tags }) => {
   )
   let posts = allMarkdownRemark.edges.filter(post => {
     if (post.node.fields.slug !== slug) {
-      if (post.node.frontmatter.cate === category) {
-        return true
-      }
+      // カテゴリーの一致出力
+      if (post.node.frontmatter.cate === category) return true
+      // タグの一致出力。記事のタグの中に一致するものがあればtrueを返す。
       for (const tag of tags) {
-        return post.node.frontmatter.tags.includes(tag)
+        if (post.node.frontmatter.tags.includes(tag)) return true
       }
     }
   })
