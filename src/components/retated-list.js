@@ -75,7 +75,7 @@ const Lists = ({ category, slug, tags }) => {
                   alt={item.node.frontmatter.title}
                   image={item.node.frontmatter.hero}
                 ></Img>
-                <time datetime={item.node.frontmatter.date}>
+                <time dateTime={item.node.frontmatter.date}>
                   {item.node.frontmatter.date}
                 </time>
               </Link>
