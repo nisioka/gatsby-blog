@@ -41,7 +41,11 @@ const BlogPostTemplate = ({ data, location }) => {
         itemScope
         itemType="http://schema.org/Article"
       >
-        <BreadCrumbList type="blog" location={location}></BreadCrumbList>
+        <BreadCrumbList
+          parent="blogs"
+          location={location}
+          title={post.frontmatter.title}
+        />
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <div className="keyvisual">
