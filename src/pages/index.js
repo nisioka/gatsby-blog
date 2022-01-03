@@ -4,6 +4,9 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import Img from "../components/img"
+import { BlogListWrapper, BlogListHeader } from "../style/blog-list-style"
+import TagCloud from "../components/tag-cloud"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -26,8 +29,11 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <Seo title={siteTitle} location={location} />
-      <Bio />
-      <ol style={{ listStyle: `none` }}>
+      <BlogListHeader>
+        <h2>最新記事</h2>
+        <p>新着記事です</p>
+      </BlogListHeader>
+      <BlogListWrapper>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
@@ -38,14 +44,23 @@ const BlogIndex = ({ data, location }) => {
                 itemScope
                 itemType="http://schema.org/Article"
               >
-                <header>
-                  <h2>
-                    <Link to={post.fields.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
-                </header>
+                <Link
+                  to={post.fields.slug}
+                  itemProp="url"
+                  className="thumbnail"
+                >
+                  <Img alt={title} image={post.frontmatter.hero}></Img>
+                  <small>
+                    <time dateTime={post.frontmatter.date}>
+                      {post.frontmatter.date}
+                    </time>
+                  </small>
+                </Link>
+                <h2>
+                  <Link to={post.fields.slug} itemProp="url">
+                    <span itemProp="headline">{title}</span>
+                  </Link>
+                </h2>
                 <section>
                   <p
                     dangerouslySetInnerHTML={{
@@ -58,7 +73,12 @@ const BlogIndex = ({ data, location }) => {
             </li>
           )
         })}
-      </ol>
+      </BlogListWrapper>
+      <BlogListHeader>
+        <h2>タグクラウド</h2>
+        <p>現在投稿中のジャンルの記事たちです</p>
+      </BlogListHeader>
+      <TagCloud></TagCloud>
     </Layout>
   )
 }
@@ -72,16 +92,21 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      limit: 6
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { pagetype: { eq: "blog" } } }
+    ) {
       nodes {
         excerpt
         fields {
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          date(formatString: "YYYY-MM-DD")
           title
           description
+          hero
         }
       }
     }
