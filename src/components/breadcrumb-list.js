@@ -9,15 +9,31 @@ const BreadCrumbList = ({ parent, title, location }) => {
   }
   return (
     <BreadCrumbNav>
-      <ol>
-        {List.map(item => {
+      <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+        {List.map((item, index) => {
           return (
-            <li key={item.location}>
-              <Link to={item.location}>{item.title}</Link>
+            <li
+              key={item.location}
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <Link to={item.location} itemprop="item">
+                <span itemprop="name">{item.title}</span>
+              </Link>
+              <meta itemprop="position" content={index + 1} />
             </li>
           )
         })}
-        <li key={location.pathname}>{title}</li>
+        <li
+          itemprop="itemListElement"
+          itemscope
+          itemtype="https://schema.org/ListItem"
+          key={location.pathname}
+        >
+          <span itemprop="name">{title}</span>
+          <meta itemprop="position" content={List.length + 1} />
+        </li>
       </ol>
     </BreadCrumbNav>
   )

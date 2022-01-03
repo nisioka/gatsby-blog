@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import BreadCrumbList from "../components/breadcrumb-list"
 
 import styled from "styled-components"
 
@@ -17,6 +18,7 @@ const PagePostTemplate = ({ data, location }) => {
         description={post.frontmatter.description || post.excerpt}
         location={location}
       />
+      <BreadCrumbList location={location} title={post.frontmatter.title} />
       <Article
         className="blog-post"
         itemScope

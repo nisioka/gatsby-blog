@@ -5,10 +5,9 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { BlogListWrapper, BlogListHeader } from "../style/blog-list-style"
 
-//画像読み込み
 import Img from "../components/img"
-
 import Pagination from "../components/pagination"
+import BreadCrumbList from "../components/breadcrumb-list"
 
 const TagList = ({ pageContext, data, location }) => {
   const { page, current, tag } = pageContext
@@ -37,6 +36,7 @@ const TagList = ({ pageContext, data, location }) => {
         type="tag-list"
         discription={`${tag}一覧記事です。`}
       />
+      <BreadCrumbList parent="blogs" location={location} title={tag} />
       <BlogListHeader>
         <h1>{tag}</h1>
         <p>現在 {totalCount} 記事あります</p>

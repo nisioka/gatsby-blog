@@ -7,10 +7,9 @@ import { BlogListWrapper, BlogListHeader } from "../style/blog-list-style"
 
 //画像読み込み
 import Img from "../components/img"
-// 追加
 import { siteMetadata } from "../../gatsby-config"
-
 import Pagination from "../components/pagination"
+import BreadCrumbList from "../components/breadcrumb-list"
 
 const CateList = ({ pageContext, data, location }) => {
   const { page, current, cateSlug } = pageContext
@@ -40,6 +39,7 @@ const CateList = ({ pageContext, data, location }) => {
         type="list-child"
         discription={`${cate.name}一覧記事です。${cate.description}`}
       />
+      <BreadCrumbList parent="blogs" location={location} title={cate.name} />
       <BlogListHeader>
         <h1>{cate.name}</h1>
         <p>{cate.description}</p>
