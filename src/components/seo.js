@@ -35,6 +35,7 @@ const Seo = props => {
             }
             social {
               twitter
+              instagram
             }
           }
         }
