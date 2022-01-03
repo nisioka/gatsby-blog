@@ -24,7 +24,10 @@ const Header = ({ location }) => {
         <nav>
           <ul>
             <li>
-              <Link to="/blogs/">ブログ</Link>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/blogs/">Blog</Link>
             </li>
             <li>
               <Link to="/about/">About Me</Link>
