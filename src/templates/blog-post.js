@@ -10,10 +10,19 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import RetatedList from "../components/retated-list"
 import TagCloud from "../components/tag-cloud"
 import BreadCrumbList from "../components/breadcrumb-list"
+import rehypeReact from "rehype-react"
+import LinkCard from "../components/blog-parts/link-card"
 
 import styled from "styled-components"
 
 import { siteMetadata } from "../../gatsby-config"
+
+const renderAst = new rehypeReact({
+  createElement: React.createElement,
+  components: {
+    card: LinkCard,
+  },
+}).Compiler
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
@@ -80,10 +89,7 @@ const BlogPostTemplate = ({ data, location }) => {
           })}
         </Dl>
         <TOC data={data.markdownRemark.tableOfContents} />
-        <BlogEntry
-          dangerouslySetInnerHTML={{ __html: post.html }}
-          itemProp="articleBody"
-        />
+        <BlogEntry itemProp="articleBody">{renderAst(post.htmlAst)}</BlogEntry>
         <footer>
           <Bio />
         </footer>
@@ -153,7 +159,7 @@ export const pageQuery = graphql`
     markdownRemark(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
-      html
+      htmlAst
       tableOfContents(maxDepth: 3)
       fields {
         slug
