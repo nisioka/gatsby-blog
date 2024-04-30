@@ -20,6 +20,7 @@ const Seo = ({ description, lang, meta, title }) => {
             description
             social {
               twitter
+              instagram
             }
           }
         }

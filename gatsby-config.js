@@ -1,15 +1,49 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `銀ねこアトリエ`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `かみーゆ`,
+      summary: `セブ島に住むフロントエンドエンジニア`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    description: `セブ島に住むフロントエンドエンジニアの気ままな日記`,
+    siteUrl: `https://ginneko-atelier.com/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `lirioY`,
+      instagram: `yurico.k`,
+      youtube: `https://www.youtube.com/channel/UCbSgjkCIPucux8cFTuQcdcw`,
     },
+    category: [
+      {
+        slug: `cms`,
+        name: `Contents Management System`,
+        description: `WordPressやconcrete5などCMSの記事`,
+      },
+      {
+        slug: `frontend`,
+        name: `Front End`,
+        description: `HTML、CSS、JSなどの書き留めたチップス`,
+      },
+      {
+        slug: `backend`,
+        name: `Back End`,
+        description: `PHP、黒い画面、DBが中心`,
+      },
+      {
+        slug: `seo`,
+        name: `Search Engine Optimization`,
+        description: `SEOやコンテンツマーケティングに関する記事`,
+      },
+      {
+        slug: `career`,
+        name: `ITセミナー`,
+        description: `勉強会の開催/登壇について書いてます`,
+      },
+      {
+        slug: `ginneko-tsuredure`,
+        name: `Life Hack`,
+        description: `思ったことを気ままに書いてます`,
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -43,9 +77,17 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              icon: false,
+              maintainCase: true,
+            },
+          },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
+          `gatsby-remark-component`,
         ],
       },
     },
